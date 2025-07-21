@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Eye, EyeOff, Mountain } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
+import logoCompleto from "@/assets/logo-completo.svg";
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
@@ -55,9 +56,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
       <Card className="w-full max-w-md glass-effect shadow-2xl border-primary/20">
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center">
-            <div className="h-16 w-16 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
-              <Mountain className="h-8 w-8 text-primary-foreground" />
-            </div>
+            <img src={logoCompleto} alt="Modo Caverna" className="h-16 w-auto" />
           </div>
           <div className="space-y-2">
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
