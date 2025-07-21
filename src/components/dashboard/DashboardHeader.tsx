@@ -55,7 +55,7 @@ export function DashboardHeader({ onLogout }: DashboardHeaderProps) {
           <SelectTrigger className="w-[180px] bg-transparent border-primary/20 text-foreground">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="bg-zinc-900 border-primary/20">
+          <SelectContent className="bg-zinc-900/95 backdrop-blur-xl border-primary/20 shadow-2xl">
             <SelectItem value="today">Hoje</SelectItem>
             <SelectItem value="7-days">Últimos 7 dias</SelectItem>
             <SelectItem value="30-days">Últimos 30 dias</SelectItem>
@@ -92,7 +92,7 @@ export function DashboardHeader({ onLogout }: DashboardHeaderProps) {
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 bg-zinc-900 border-primary/20" align="end" forceMount>
+          <DropdownMenuContent className="w-56 bg-zinc-900/95 backdrop-blur-xl border-primary/20 shadow-2xl" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">Admin</p>
