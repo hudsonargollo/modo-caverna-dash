@@ -54,18 +54,21 @@ export function LoginForm({ onLogin }: LoginFormProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background dashboard-background p-4">
       <Card className="w-full max-w-md glass-effect shadow-2xl border-primary/20">
-        <CardHeader className="text-center pb-0 pt-6">
-          <div className="flex justify-center mb-2">
-            <img src={logoCompleto} alt="Modo Caverna" className="h-12 w-auto" />
+        <CardHeader className="text-center pb-4 pt-8">
+          <div className="flex justify-center mb-4">
+            <img src={logoCompleto} alt="Modo Caverna" className="h-14 w-auto" />
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent mb-0">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
             Modo Caverna
           </CardTitle>
+          <CardDescription className="text-muted-foreground mt-2">
+            Faça login para acessar o dashboard
+          </CardDescription>
         </CardHeader>
-        <CardContent className="pt-1 px-4">
-          <form onSubmit={handleSubmit} className="space-y-3">
+        <CardContent className="px-6 pb-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium text-foreground">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -74,10 +77,11 @@ export function LoginForm({ onLogin }: LoginFormProps) {
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
                 required
+                className="h-11"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
+              <Label htmlFor="password" className="text-sm font-medium text-foreground">Senha</Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -87,12 +91,13 @@ export function LoginForm({ onLogin }: LoginFormProps) {
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={isLoading}
                   required
+                  className="h-11 pr-10"
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-muted-foreground hover:text-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                   disabled={isLoading}
                 >
@@ -106,7 +111,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
             </div>
             <Button 
               type="submit" 
-              className="login-button"
+              className="w-full h-11 login-button mt-6"
               disabled={isLoading}
             >
               {isLoading ? "Entrando..." : "Entrar"}
