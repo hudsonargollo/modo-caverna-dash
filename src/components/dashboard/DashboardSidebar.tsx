@@ -48,7 +48,7 @@ export function DashboardSidebar() {
 
   return (
     <Sidebar className={`${collapsed ? "w-14" : "w-64"} glass-effect shadow-xl border-r border-primary/10`}>
-      <SidebarHeader className="border-b border-sidebar-border glass-effect">
+      <SidebarHeader className="glass-effect">
         <div className="flex items-center justify-center px-3 py-4">
           <img src={logoCompleto} alt="Modo Caverna" className={collapsed ? "h-6 w-auto" : "h-10 w-auto"} />
         </div>
