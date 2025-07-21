@@ -14,27 +14,64 @@ export function CaptainCaveReport() {
 
   const generateReport = async () => {
     setIsGenerating(true);
+    
     // Simulate AI report generation
-    setTimeout(() => {
-      setReport(`Ahoy! Captain Cave here with your ${selectedPeriod} analysis. 
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    const reports = {
+      daily: `Análise Diária dos Usuários - ${new Date().toLocaleDateString('pt-BR')}
       
-Revenue streams showing strong momentum with a 23% uptick compared to last period. Customer acquisition has been stellar, with our conversion funnel performing at peak efficiency.
+Usuários Ativos: 234
+Novos Cadastros: 18
+Taxa de Retenção: 87%
+Assinaturas Ativas: 156
+Cancelamentos: 3
 
-Key insights:
-• Top performing segment: Premium subscriptions (+45%)
-• Geographic growth: São Paulo region leading at 67% increase
-• Customer retention: Solid 94% monthly retention rate
-• Emerging opportunity: Corporate packages showing 156% growth potential
+O dia apresenta forte engajamento dos usuários. A taxa de retenção está acima da média semanal e os novos cadastros mostram crescimento consistente.`,
+      
+      weekly: `Análise Semanal de Atividade dos Usuários
+      
+Usuários Ativos: 1,456
+Novos Cadastros: 89
+Taxa de Retenção: 82%
+Assinaturas Ativas: 892
+Cancelamentos: 12
 
-Strategic recommendations:
-1. Double down on São Paulo market expansion
-2. Enhance premium feature set to capture more value
-3. Launch corporate sales initiative next quarter
-4. Optimize pricing for maximum lifetime value
+Esta semana demonstra padrões consistentes de crescimento. A retenção de usuários melhorou 15% em comparação à semana passada.`,
+      
+      monthly: `Análise Mensal de Usuários e Aquisição
+      
+Usuários Ativos: 4,567
+Novos Cadastros: 378
+Taxa de Retenção: 84%
+Assinaturas Ativas: 2,834
+Cancelamentos: 45
 
-The data shows we're on the right trajectory, but there's untapped potential in our enterprise segment. Time to make some bold moves!`);
-      setIsGenerating(false);
-    }, 2000);
+Performance mensal supera expectativas. Fortes métricas de aquisição e retenção indicam crescimento saudável da base de usuários.`,
+      
+      yearly: `Análise Anual de Crescimento de Usuários
+      
+Usuários Ativos: 12,456
+Novos Cadastros: 3,234
+Taxa de Retenção: 86%
+Assinaturas Ativas: 8,967
+Cancelamentos: 234
+
+Performance anual mostra crescimento excepcional. Todas as métricas principais demonstram expansão sustentada da base de usuários.`,
+      
+      alltime: `Análise Histórica Completa de Usuários
+      
+Total de Usuários: 25,678
+Total de Cadastros: 18,456
+Retenção Média: 85%
+Assinaturas Totais: 15,234
+Taxa de Conversão: 67%
+
+Dados históricos revelam crescimento sólido com tendências consistentes de crescimento em todas as métricas de usuários.`
+    };
+    
+    setReport(reports[selectedPeriod]);
+    setIsGenerating(false);
   };
 
   const playReport = () => {
@@ -66,15 +103,15 @@ The data shows we're on the right trajectory, but there's untapped potential in 
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="daily">Daily</SelectItem>
-              <SelectItem value="weekly">Weekly</SelectItem>
-              <SelectItem value="monthly">Monthly</SelectItem>
-              <SelectItem value="yearly">Yearly</SelectItem>
-              <SelectItem value="alltime">All Time</SelectItem>
+              <SelectItem value="daily">Diário</SelectItem>
+              <SelectItem value="weekly">Semanal</SelectItem>
+              <SelectItem value="monthly">Mensal</SelectItem>
+              <SelectItem value="yearly">Anual</SelectItem>
+              <SelectItem value="alltime">Histórico</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={generateReport} disabled={isGenerating} className="bg-primary hover:bg-primary/90">
-            {isGenerating ? "Analyzing..." : "Generate Report"}
+            {isGenerating ? "Analisando..." : "Gerar Relatório"}
           </Button>
         </div>
 
@@ -89,7 +126,7 @@ The data shows we're on the right trajectory, but there's untapped potential in 
               className="flex items-center gap-2"
             >
               {isPlaying ? <Square className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-              {isPlaying ? "Stop" : "Listen to Report"}
+              {isPlaying ? "Parar" : "Ouvir Relatório"}
             </Button>
           </div>
         )}

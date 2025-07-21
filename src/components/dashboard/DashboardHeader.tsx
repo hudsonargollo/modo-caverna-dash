@@ -17,6 +17,7 @@ import {
   Calendar
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import logoCompleto from "@/assets/logo-completo.svg";
 
 interface DashboardHeaderProps {
   onLogout?: () => void;
@@ -43,23 +44,28 @@ export function DashboardHeader({ onLogout }: DashboardHeaderProps) {
   };
 
   return (
-    <header className="h-16 border-b border-border glass-effect px-6 flex items-center justify-between shadow-lg">
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-primary" />
-          <span className="text-sm text-muted-foreground">
-            {new Date().toLocaleDateString('pt-BR', { 
-              weekday: 'long', 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}
-          </span>
+    <header className="h-20 border-b border-primary/20 glass-effect px-6 flex items-center justify-between shadow-2xl backdrop-blur-xl bg-gradient-to-r from-zinc-900/90 to-zinc-800/90">
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3">
+          <img src={logoCompleto} alt="Modo Caverna" className="h-12 w-auto" />
         </div>
-        <Badge variant="secondary" className="hidden sm:flex glass-effect">
-          <div className="h-2 w-2 rounded-full bg-chart-2 mr-2 animate-pulse" />
-          Sistema Online
-        </Badge>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Calendar className="h-4 w-4 text-primary" />
+            <span className="text-sm text-foreground/80 font-medium">
+              {new Date().toLocaleDateString('pt-BR', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })}
+            </span>
+          </div>
+          <Badge variant="secondary" className="hidden sm:flex glass-effect border-primary/30 bg-primary/10 text-primary">
+            <div className="h-2 w-2 rounded-full bg-primary mr-2 animate-pulse" />
+            Sistema Online
+          </Badge>
+        </div>
       </div>
 
       <div className="flex items-center gap-3">
