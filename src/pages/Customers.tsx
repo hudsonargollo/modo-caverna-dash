@@ -269,7 +269,7 @@ export default function Customers() {
         {/* Header Stats */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+            <div className="h-8 w-8 bg-gradient-to-r from-primary to-red-600 rounded-lg flex items-center justify-center shadow-lg">
               <span className="text-white text-sm">💎</span>
             </div>
             <h1 className="text-xl md:text-2xl font-semibold text-foreground">Gerenciamento de Clientes</h1>
