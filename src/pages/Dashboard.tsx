@@ -11,8 +11,6 @@ import {
   TrendingDown,
   Calendar,
   RefreshCw,
-  FileText,
-  Upload,
   Download
 } from "lucide-react";
 import { Bar, BarChart, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Cell } from "recharts";
@@ -42,13 +40,6 @@ const paymentMethodData = [
   { method: "Outros", value: 5 },
 ];
 
-const csvFiles = [
-  "MAIO2024-MAIO2025-setembro2024.csv",
-  "MAIO2024-MAIO2025-outubro2024.csv", 
-  "MAIO2024-MAIO2025-novembro2024.csv",
-  "MAIO2024-MAIO2025-dezembro2024.csv",
-  "MAIO2024-MAIO2025-janeiro2025.csv"
-];
 
 export default function Dashboard() {
   return (
@@ -72,35 +63,8 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* CSV Status Section */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <div className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-primary" />
-              <CardTitle>Status dos Arquivos CSV</CardTitle>
-            </div>
-            <CardDescription>
-              Clique aqui ou arraste CSVs adicionais para análise
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-2">
-              {csvFiles.slice(0, 3).map((file, index) => (
-                <div key={index} className="flex items-center gap-3 p-2 rounded-lg bg-muted/30">
-                  <FileText className="h-4 w-4 text-chart-2" />
-                  <span className="text-sm font-medium flex-1">{file}</span>
-                  <Badge variant="secondary" className="bg-chart-2 text-chart-2-foreground">
-                    Carregado
-                  </Badge>
-                </div>
-              ))}
-              <Button variant="outline" className="w-full mt-3">
-                <Upload className="h-4 w-4 mr-2" />
-                Carregar mais arquivos
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Captain Cave AI Analysis */}
+        <CaptainCaveReport />
 
         {/* Key Metrics */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
