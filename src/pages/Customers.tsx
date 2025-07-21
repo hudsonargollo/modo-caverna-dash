@@ -364,14 +364,40 @@ export default function Customers() {
                   
                   {/* Plan Pills */}
                   <div className="flex flex-wrap gap-1 mb-2">
-                    {activePurchases.slice(0, 2).map((purchase, index) => (
-                      <Badge 
-                        key={purchase.id} 
-                        className="text-xs px-2 py-1 bg-primary/20 text-primary border border-primary/30"
-                      >
-                        {purchase.plan.replace('Central Caverna', 'CC').replace('Modo Caverna', 'MC').replace('Desafio Caverna', 'DC')}
-                      </Badge>
-                    ))}
+                    {activePurchases.slice(0, 2).map((purchase, index) => {
+                      const getPlanBadge = (planName: string) => {
+                        if (planName.includes('Central Caverna')) {
+                          return {
+                            name: 'CENTRAL',
+                            className: 'text-xs px-2 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                          };
+                        } else if (planName.includes('Desafio Caverna')) {
+                          return {
+                            name: 'DESAFIO',
+                            className: 'text-xs px-2 py-1 bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                          };
+                        } else if (planName.includes('Modo Caverna')) {
+                          return {
+                            name: 'MC',
+                            className: 'text-xs px-2 py-1 bg-primary/20 text-primary border border-primary/30'
+                          };
+                        }
+                        return {
+                          name: planName,
+                          className: 'text-xs px-2 py-1 bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                        };
+                      };
+
+                      const planBadge = getPlanBadge(purchase.plan);
+                      return (
+                        <Badge 
+                          key={purchase.id} 
+                          className={planBadge.className}
+                        >
+                          {planBadge.name}
+                        </Badge>
+                      );
+                    })}
                     {activePurchases.length > 2 && (
                       <Badge className="text-xs px-2 py-1 bg-muted/20 text-muted-foreground">
                         +{activePurchases.length - 2}
