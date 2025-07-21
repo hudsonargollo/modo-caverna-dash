@@ -265,57 +265,62 @@ export default function Customers() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="spacing-responsive">
         {/* Header Stats */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded flex items-center justify-center">
-              <span className="text-white text-xs">💎</span>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="h-8 w-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg">
+              <span className="text-white text-sm">💎</span>
             </div>
-            <h1 className="text-xl font-semibold text-foreground">Gerenciamento de Clientes</h1>
+            <h1 className="text-xl md:text-2xl font-semibold text-foreground">Gerenciamento de Clientes</h1>
           </div>
-          <Button onClick={exportToCSV} className="flex items-center gap-2">
+          <Button 
+            onClick={exportToCSV} 
+            variant="premium" 
+            size="lg"
+            className="flex items-center gap-2 shadow-xl"
+          >
             <Download className="h-4 w-4" />
             Exportar CSV ({filteredCustomers.length})
           </Button>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-5 gap-4">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">{totalStats.ativos}</div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+          <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+            <div className="text-2xl md:text-3xl font-bold text-foreground">{totalStats.ativos}</div>
             <div className="text-sm text-muted-foreground">Ativos</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">{totalStats.expirando}</div>
+          <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+            <div className="text-2xl md:text-3xl font-bold text-foreground">{totalStats.expirando}</div>
             <div className="text-sm text-muted-foreground">Expirando</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">{totalStats.expirados}</div>
+          <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+            <div className="text-2xl md:text-3xl font-bold text-foreground">{totalStats.expirados}</div>
             <div className="text-sm text-muted-foreground">Expirados</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">{totalStats.total}</div>
+          <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20">
+            <div className="text-2xl md:text-3xl font-bold text-foreground">{totalStats.total}</div>
             <div className="text-sm text-muted-foreground">Total</div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">{totalStats.receita}</div>
+          <div className="text-center p-4 rounded-xl bg-background/60 backdrop-blur-sm border border-primary/20 col-span-2 md:col-span-1">
+            <div className="text-2xl md:text-3xl font-bold text-foreground">{totalStats.receita}</div>
             <div className="text-sm text-muted-foreground">Receita</div>
           </div>
         </div>
 
         {/* Filters and Search */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Status</span>
-            <div className="flex gap-1">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 p-4 md:p-6 rounded-xl bg-background/40 backdrop-blur-sm border border-primary/20">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span className="text-sm font-medium text-muted-foreground">Status</span>
+            <div className="flex flex-wrap gap-2">
               {statusFilters.map((filter) => (
                 <Button
                   key={filter.key}
-                  variant={activeFilter === filter.key ? "default" : "outline"}
+                  variant={activeFilter === filter.key ? "default" : "filter"}
                   size="sm"
                   onClick={() => setActiveFilter(filter.key)}
-                  className={activeFilter === filter.key ? "bg-primary text-primary-foreground" : ""}
+                  className="shadow-md"
                 >
                   {filter.label}
                 </Button>
@@ -323,22 +328,22 @@ export default function Customers() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Buscar</span>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span className="text-sm font-medium text-muted-foreground">Buscar</span>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Nome ou email..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-64"
+                className="pl-10 w-full sm:w-64 bg-background/60 backdrop-blur-sm border-primary/30 focus:border-primary/60"
               />
             </div>
           </div>
         </div>
 
         {/* Customer Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6">
           {filteredCustomers.map((customer) => {
             const customerStatus = getCustomerStatus(customer);
             const isExpanded = expandedCards.includes(customer.id);
@@ -346,10 +351,10 @@ export default function Customers() {
             const refundedPurchases = customer.purchases.filter(p => p.isRefunded);
 
             return (
-              <Card key={customer.id} className="glass-effect border-primary/20 bg-zinc-900/80">
+              <Card key={customer.id} className="glass-effect border-primary/20 bg-zinc-900/80 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                 <CardHeader className="pb-3">
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-sm font-semibold text-foreground">
+                  <div className="flex justify-between items-start gap-2">
+                    <CardTitle className="text-sm font-semibold text-foreground line-clamp-2">
                       {customer.name}
                     </CardTitle>
                     {getStatusBadge(customerStatus)}
@@ -378,8 +383,12 @@ export default function Customers() {
                 <CardContent className="pt-0">
                   <Collapsible open={isExpanded} onOpenChange={() => toggleCardExpansion(customer.id)}>
                     <CollapsibleTrigger asChild>
-                      <Button variant="ghost" className="w-full flex justify-between items-center p-2">
-                        <span className="text-sm">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="w-full flex justify-between items-center p-3 hover:bg-primary/10 rounded-lg"
+                      >
+                        <span className="text-sm font-medium">
                           Ver compras ({customer.purchases.length})
                         </span>
                         {isExpanded ? (
