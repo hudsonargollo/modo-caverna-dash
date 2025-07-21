@@ -270,9 +270,9 @@ export default function Customers() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 bg-gradient-to-r from-primary to-red-600 rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white text-sm">💎</span>
+              <span className="text-white text-sm">👤</span>
             </div>
-            <h1 className="text-xl md:text-2xl font-semibold text-foreground">Gerenciamento de Clientes</h1>
+            <h1 className="text-xl md:text-2xl font-semibold text-foreground">Gerenciamento de Usuários</h1>
           </div>
           <Button 
             onClick={exportToCSV} 
