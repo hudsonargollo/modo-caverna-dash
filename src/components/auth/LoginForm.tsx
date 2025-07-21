@@ -55,7 +55,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
     <div className="min-h-screen flex items-center justify-center bg-background dashboard-background p-4">
       <Card className="w-full max-w-md glass-effect shadow-2xl border-primary/20">
         <CardHeader className="space-y-4 text-center">
-          <div className="flex justify-center">
+          <div className="flex justify-center pt-4">
             <img src={logoCompleto} alt="Modo Caverna" className="h-16 w-auto" />
           </div>
           <div className="space-y-2">
@@ -111,7 +111,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
             </div>
             <Button 
               type="submit" 
-              className="w-full" 
+              className="login-button"
               disabled={isLoading}
             >
               {isLoading ? "Entrando..." : "Entrar"}
