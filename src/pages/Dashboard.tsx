@@ -1,5 +1,6 @@
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
+import { CaptainCaveReport } from "@/components/dashboard/CaptainCaveReport";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
