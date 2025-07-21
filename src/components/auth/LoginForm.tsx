@@ -54,9 +54,9 @@ export function LoginForm({ onLogin }: LoginFormProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background dashboard-background p-4">
       <Card className="w-full max-w-md glass-effect shadow-2xl border-primary/20">
-        <CardHeader className="text-center pb-4 pt-8">
-          <div className="flex justify-center mb-4">
-            <img src={logoCompleto} alt="Modo Caverna" className="h-14 w-auto" />
+        <CardHeader className="text-center pb-6 pt-10">
+          <div className="flex justify-center mb-6">
+            <img src={logoCompleto} alt="Modo Caverna" className="h-16 w-auto" />
           </div>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
             Modo Caverna
