@@ -44,28 +44,6 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        {/* Header Section */}
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-              Dashboard de Usuários
-            </h1>
-            <p className="text-muted-foreground mt-2 text-lg">
-              Acompanhe a atividade, aquisição e retenção dos seus usuários
-            </p>
-          </div>
-          
-          <div className="flex items-center gap-3">
-            <Button variant="outline" className="glass-effect border-primary/30 hover:bg-primary/10">
-              <Download className="h-4 w-4 mr-2" />
-              Exportar
-            </Button>
-            <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Atualizar
-            </Button>
-          </div>
-        </div>
 
         {/* Captain Cave Report */}
         <div className="mb-8">
