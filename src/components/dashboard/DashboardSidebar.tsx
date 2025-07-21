@@ -20,10 +20,10 @@ import {
   FileText, 
   Settings, 
   Upload,
-  Mountain,
   TrendingUp,
   PieChart
 } from "lucide-react";
+import logoCompleto from "@/assets/logo-completo.svg";
 
 const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: BarChart3 },
@@ -49,15 +49,13 @@ export function DashboardSidebar() {
   return (
     <Sidebar className={`${collapsed ? "w-14" : "w-64"} glass-effect shadow-xl border-r border-primary/10`}>
       <SidebarHeader className="border-b border-sidebar-border glass-effect">
-        <div className="flex items-center gap-3 px-3 py-4">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
-            <Mountain className="h-5 w-5 text-primary-foreground" />
-          </div>
-          {!collapsed && (
-            <div className="flex flex-col">
-              <span className="font-semibold text-sidebar-foreground">Modo Caverna</span>
-              <span className="text-xs text-primary/60">Dashboard</span>
+        <div className="flex items-center justify-center px-3 py-4">
+          {collapsed ? (
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+              <img src={logoCompleto} alt="MC" className="h-5 w-5" />
             </div>
+          ) : (
+            <img src={logoCompleto} alt="Modo Caverna" className="h-10 w-auto" />
           )}
         </div>
       </SidebarHeader>
