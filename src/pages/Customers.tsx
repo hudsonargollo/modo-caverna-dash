@@ -3,20 +3,31 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Phone, Search } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Phone, Search, Download, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+interface Purchase {
+  id: string;
+  plan: string;
+  value: string;
+  purchaseDate: string;
+  expirationDate: string;
+  status: "ativo" | "expirando" | "expirado";
+  daysExpired?: number;
+  isRefunded?: boolean;
+  refundDate?: string;
+}
 
 interface Customer {
   id: string;
   name: string;
   email: string;
   phone: string;
-  plan: string;
-  value: string;
-  purchaseDate: string;
-  expirationDate: string;
-  status: "ativo" | "expirando" | "expirado";
-  daysExpired: number;
+  purchases: Purchase[];
+  totalSpent: string;
+  lastActivity: string;
 }
 
 const mockCustomers: Customer[] = [
@@ -24,73 +35,123 @@ const mockCustomers: Customer[] = [
     id: "1",
     name: "GURSKAS",
     email: "cassio.gurskas@gmail.com",
-    phone: "N/A",
-    plan: "Modo Caverna PA",
-    value: "R$ 0,00",
-    purchaseDate: "09/01/2024",
-    expirationDate: "09/01/2024",
-    status: "expirado",
-    daysExpired: 558
+    phone: "+55 11 99999-9999",
+    totalSpent: "R$ 297,00",
+    lastActivity: "2024-01-15",
+    purchases: [
+      {
+        id: "p1",
+        plan: "Modo Caverna PA",
+        value: "R$ 97,00",
+        purchaseDate: "09/01/2024",
+        expirationDate: "09/01/2024",
+        status: "expirado",
+        daysExpired: 558
+      },
+      {
+        id: "p2",
+        plan: "Central Caverna Mensal",
+        value: "R$ 200,00",
+        purchaseDate: "15/06/2024",
+        expirationDate: "15/07/2024",
+        status: "expirado",
+        daysExpired: 190
+      }
+    ]
   },
   {
     id: "2",
     name: "CLAUDINEI CORDEIRO",
     email: "claudineicordeiroadm@gmail.com",
-    phone: "N/A",
-    plan: "Modo Caverna AF",
-    value: "R$ 0,00",
-    purchaseDate: "09/01/2024",
-    expirationDate: "09/01/2024",
-    status: "expirado",
-    daysExpired: 558
+    phone: "+55 21 88888-8888",
+    totalSpent: "R$ 500,00",
+    lastActivity: "2024-07-20",
+    purchases: [
+      {
+        id: "p3",
+        plan: "Modo Caverna AF",
+        value: "R$ 150,00",
+        purchaseDate: "09/01/2024",
+        expirationDate: "09/01/2024",
+        status: "expirado",
+        daysExpired: 558
+      },
+      {
+        id: "p4",
+        plan: "Desafio Caverna",
+        value: "R$ 350,00",
+        purchaseDate: "20/07/2024",
+        expirationDate: "20/08/2024",
+        status: "ativo"
+      }
+    ]
   },
   {
     id: "3",
     name: "CARLOS RENATO FÉLIX GAMA SILVA",
     email: "drcarlofgmail.com",
     phone: "N/A",
-    plan: "Modo Caverna AF",
-    value: "R$ 0,00",
-    purchaseDate: "09/01/2024",
-    expirationDate: "09/01/2024",
-    status: "expirado",
-    daysExpired: 558
+    totalSpent: "R$ 97,00",
+    lastActivity: "2024-01-09",
+    purchases: [
+      {
+        id: "p5",
+        plan: "Modo Caverna AF",
+        value: "R$ 97,00",
+        purchaseDate: "09/01/2024",
+        expirationDate: "09/01/2024",
+        status: "expirado",
+        daysExpired: 558
+      }
+    ]
   },
   {
     id: "4",
     name: "PEDRO BARROS",
     email: "barrospedro365@gmail.com",
-    phone: "N/A",
-    plan: "Central Caverna PA",
-    value: "R$ 0,00",
-    purchaseDate: "09/02/2024",
-    expirationDate: "09/02/2024",
-    status: "expirado",
-    daysExpired: 528
+    phone: "+55 31 77777-7777",
+    totalSpent: "R$ 150,00",
+    lastActivity: "2024-02-09",
+    purchases: [
+      {
+        id: "p6",
+        plan: "Central Caverna PA",
+        value: "R$ 250,00",
+        purchaseDate: "09/02/2024",
+        expirationDate: "09/02/2024",
+        status: "expirado",
+        daysExpired: 528,
+        isRefunded: true,
+        refundDate: "15/02/2024"
+      },
+      {
+        id: "p7",
+        plan: "Central Caverna Anual",
+        value: "R$ 150,00",
+        purchaseDate: "20/02/2024",
+        expirationDate: "20/02/2025",
+        status: "ativo"
+      }
+    ]
   },
   {
     id: "5",
     name: "ANDERSON WILLY",
     email: "anderson.conexao.oficial@gmail.com",
-    phone: "N/A",
-    plan: "Modo Caverna CO",
-    value: "R$ 0,00",
-    purchaseDate: "09/02/2024",
-    expirationDate: "09/02/2024",
-    status: "expirado",
-    daysExpired: 528
-  },
-  {
-    id: "6",
-    name: "JOÃO PEDRO NASCIMENTO QUADROS",
-    email: "joaodpju09@gmail.com",
-    phone: "N/A",
-    plan: "Central Caverna APP",
-    value: "R$ 0,00",
-    purchaseDate: "09/02/2024",
-    expirationDate: "09/02/2024",
-    status: "expirado",
-    daysExpired: 527
+    phone: "+55 85 66666-6666",
+    totalSpent: "R$ 147,00",
+    lastActivity: "2024-02-09",
+    purchases: [
+      {
+        id: "p8",
+        plan: "Modo Caverna CO",
+        value: "R$ 147,00",
+        purchaseDate: "09/02/2024",
+        expirationDate: "09/02/2024",
+        status: "expirado",
+        daysExpired: 528
+      }
+    ]
   }
 ];
 
@@ -104,15 +165,72 @@ const statusFilters = [
 export default function Customers() {
   const [activeFilter, setActiveFilter] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
+  const [expandedCards, setExpandedCards] = useState<string[]>([]);
+  const { toast } = useToast();
+
+  // Get customer status based on their active purchases
+  const getCustomerStatus = (customer: Customer) => {
+    const activePurchases = customer.purchases.filter(p => !p.isRefunded);
+    if (activePurchases.some(p => p.status === "ativo")) return "ativo";
+    if (activePurchases.some(p => p.status === "expirando")) return "expirando";
+    return "expirado";
+  };
 
   const filteredCustomers = mockCustomers.filter(customer => {
-    const matchesStatus = activeFilter === "todos" || customer.status === activeFilter;
+    const customerStatus = getCustomerStatus(customer);
+    const matchesStatus = activeFilter === "todos" || customerStatus === activeFilter;
     const matchesSearch = 
       customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       customer.email.toLowerCase().includes(searchTerm.toLowerCase());
     
     return matchesStatus && matchesSearch;
   });
+
+  const exportToCSV = () => {
+    const headers = ["Nome", "Email", "Telefone", "Plano", "Status", "Atividade"];
+    const csvData = [headers];
+
+    filteredCustomers.forEach(customer => {
+      const customerStatus = getCustomerStatus(customer);
+      const activePlans = customer.purchases
+        .filter(p => !p.isRefunded)
+        .map(p => p.plan)
+        .join("; ");
+      
+      csvData.push([
+        customer.name,
+        customer.email,
+        customer.phone,
+        activePlans || "Nenhum plano ativo",
+        customerStatus,
+        customer.lastActivity
+      ]);
+    });
+
+    const csvContent = csvData.map(row => row.join(",")).join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `clientes_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    toast({
+      title: "CSV Exportado",
+      description: `${filteredCustomers.length} clientes exportados com sucesso.`
+    });
+  };
+
+  const toggleCardExpansion = (customerId: string) => {
+    setExpandedCards(prev => 
+      prev.includes(customerId)
+        ? prev.filter(id => id !== customerId)
+        : [...prev, customerId]
+    );
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -127,12 +245,22 @@ export default function Customers() {
     }
   };
 
+  const getPurchaseStatusBadge = (purchase: Purchase) => {
+    if (purchase.isRefunded) {
+      return <Badge className="bg-orange-500 text-white">REEMBOLSADO</Badge>;
+    }
+    return getStatusBadge(purchase.status);
+  };
+
   const totalStats = {
-    ativos: mockCustomers.filter(c => c.status === "ativo").length,
-    expirando: mockCustomers.filter(c => c.status === "expirando").length,
-    expirados: mockCustomers.filter(c => c.status === "expirado").length,
+    ativos: mockCustomers.filter(c => getCustomerStatus(c) === "ativo").length,
+    expirando: mockCustomers.filter(c => getCustomerStatus(c) === "expirando").length,
+    expirados: mockCustomers.filter(c => getCustomerStatus(c) === "expirado").length,
     total: mockCustomers.length,
-    receita: "R$ 0,00"
+    receita: mockCustomers.reduce((sum, customer) => {
+      const totalSpent = parseFloat(customer.totalSpent.replace("R$ ", "").replace(",", "."));
+      return sum + totalSpent;
+    }, 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
   };
 
   return (
@@ -144,14 +272,18 @@ export default function Customers() {
             <div className="h-6 w-6 bg-gradient-to-r from-blue-500 to-blue-600 rounded flex items-center justify-center">
               <span className="text-white text-xs">💎</span>
             </div>
-            <h1 className="text-xl font-semibold text-foreground">Plano Caverna</h1>
+            <h1 className="text-xl font-semibold text-foreground">Gerenciamento de Clientes</h1>
           </div>
+          <Button onClick={exportToCSV} className="flex items-center gap-2">
+            <Download className="h-4 w-4" />
+            Exportar CSV ({filteredCustomers.length})
+          </Button>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-5 gap-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-foreground">{totalStats.total}</div>
+            <div className="text-2xl font-bold text-foreground">{totalStats.ativos}</div>
             <div className="text-sm text-muted-foreground">Ativos</div>
           </div>
           <div className="text-center">
@@ -206,50 +338,121 @@ export default function Customers() {
         </div>
 
         {/* Customer Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {filteredCustomers.map((customer) => (
-            <Card key={customer.id} className="glass-effect border-red-500/50 bg-zinc-900/80">
-              <CardContent className="p-4">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-semibold text-foreground text-sm">
-                    {customer.name}
-                  </h3>
-                  {getStatusBadge(customer.status)}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredCustomers.map((customer) => {
+            const customerStatus = getCustomerStatus(customer);
+            const isExpanded = expandedCards.includes(customer.id);
+            const activePurchases = customer.purchases.filter(p => !p.isRefunded);
+            const refundedPurchases = customer.purchases.filter(p => p.isRefunded);
 
-                <div className="space-y-2 mb-4">
-                  <p className="text-xs text-muted-foreground">{customer.email}</p>
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Phone className="h-3 w-3" />
-                    {customer.phone}
+            return (
+              <Card key={customer.id} className="glass-effect border-primary/20 bg-zinc-900/80">
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-sm font-semibold text-foreground">
+                      {customer.name}
+                    </CardTitle>
+                    {getStatusBadge(customerStatus)}
                   </div>
-                </div>
-
-                <div className="space-y-1 mb-4">
-                  <p className="text-sm font-medium text-foreground">{customer.plan}</p>
-                  <p className="text-lg font-bold text-red-500">{customer.value}</p>
-                  <p className="text-xs text-muted-foreground">N/A</p>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-xs mb-3">
-                  <div>
-                    <p className="text-muted-foreground">COMPRA</p>
-                    <p className="text-foreground">{customer.purchaseDate}</p>
+                  
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">{customer.email}</p>
+                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <Phone className="h-3 w-3" />
+                      {customer.phone}
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-muted-foreground">EXPIRA</p>
-                    <p className="text-foreground">{customer.expirationDate}</p>
-                  </div>
-                </div>
 
-                <div className="text-center">
-                  <p className="text-sm font-medium text-red-500">
-                    {customer.daysExpired} dias expirado
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-lg font-bold text-primary">{customer.totalSpent}</p>
+                      <p className="text-xs text-muted-foreground">Total gasto</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-foreground">{customer.lastActivity}</p>
+                      <p className="text-xs text-muted-foreground">Última atividade</p>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="pt-0">
+                  <Collapsible open={isExpanded} onOpenChange={() => toggleCardExpansion(customer.id)}>
+                    <CollapsibleTrigger asChild>
+                      <Button variant="ghost" className="w-full flex justify-between items-center p-2">
+                        <span className="text-sm">
+                          Ver compras ({customer.purchases.length})
+                        </span>
+                        {isExpanded ? (
+                          <ChevronUp className="h-4 w-4" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4" />
+                        )}
+                      </Button>
+                    </CollapsibleTrigger>
+                    
+                    <CollapsibleContent className="space-y-3">
+                      {/* Active Purchases */}
+                      {activePurchases.length > 0 && (
+                        <div>
+                          <h4 className="text-xs font-medium text-muted-foreground mb-2">COMPRAS ATIVAS</h4>
+                          {activePurchases.map((purchase) => (
+                            <div key={purchase.id} className="border border-primary/20 rounded p-3 mb-2">
+                              <div className="flex justify-between items-start mb-2">
+                                <p className="text-sm font-medium text-foreground">{purchase.plan}</p>
+                                {getPurchaseStatusBadge(purchase)}
+                              </div>
+                              <p className="text-lg font-bold text-primary mb-2">{purchase.value}</p>
+                              <div className="grid grid-cols-2 gap-2 text-xs">
+                                <div>
+                                  <p className="text-muted-foreground">COMPRA</p>
+                                  <p className="text-foreground">{purchase.purchaseDate}</p>
+                                </div>
+                                <div>
+                                  <p className="text-muted-foreground">EXPIRA</p>
+                                  <p className="text-foreground">{purchase.expirationDate}</p>
+                                </div>
+                              </div>
+                              {purchase.daysExpired && (
+                                <p className="text-sm text-red-500 mt-2">
+                                  {purchase.daysExpired} dias expirado
+                                </p>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Refunded Purchases */}
+                      {refundedPurchases.length > 0 && (
+                        <div>
+                          <h4 className="text-xs font-medium text-muted-foreground mb-2">REEMBOLSOS</h4>
+                          {refundedPurchases.map((purchase) => (
+                            <div key={purchase.id} className="border border-orange-500/20 rounded p-3 mb-2 bg-orange-500/5">
+                              <div className="flex justify-between items-start mb-2">
+                                <p className="text-sm font-medium text-foreground">{purchase.plan}</p>
+                                {getPurchaseStatusBadge(purchase)}
+                              </div>
+                              <p className="text-lg font-bold text-orange-500 mb-2">{purchase.value}</p>
+                              <div className="grid grid-cols-2 gap-2 text-xs">
+                                <div>
+                                  <p className="text-muted-foreground">COMPRA</p>
+                                  <p className="text-foreground">{purchase.purchaseDate}</p>
+                                </div>
+                                <div>
+                                  <p className="text-muted-foreground">REEMBOLSO</p>
+                                  <p className="text-foreground">{purchase.refundDate}</p>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </CollapsibleContent>
+                  </Collapsible>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </DashboardLayout>
