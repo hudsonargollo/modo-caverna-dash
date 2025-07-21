@@ -19,6 +19,8 @@ const App = () => {
   // Set dark mode by default for Modo Caverna
   useEffect(() => {
     document.documentElement.classList.add('dark');
+    document.body.style.backgroundColor = '#18181b';
+    document.body.style.color = '#f8fafc';
   }, []);
 
   return (

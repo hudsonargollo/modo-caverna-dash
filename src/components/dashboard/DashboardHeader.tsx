@@ -43,10 +43,10 @@ export function DashboardHeader({ onLogout }: DashboardHeaderProps) {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-card px-6 flex items-center justify-between">
+    <header className="h-16 border-b border-border glass-effect px-6 flex items-center justify-between shadow-lg">
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-muted-foreground" />
+          <Calendar className="h-4 w-4 text-primary" />
           <span className="text-sm text-muted-foreground">
             {new Date().toLocaleDateString('pt-BR', { 
               weekday: 'long', 
@@ -56,7 +56,7 @@ export function DashboardHeader({ onLogout }: DashboardHeaderProps) {
             })}
           </span>
         </div>
-        <Badge variant="secondary" className="hidden sm:flex">
+        <Badge variant="secondary" className="hidden sm:flex glass-effect">
           <div className="h-2 w-2 rounded-full bg-chart-2 mr-2 animate-pulse" />
           Sistema Online
         </Badge>

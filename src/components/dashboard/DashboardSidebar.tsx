@@ -47,16 +47,16 @@ export function DashboardSidebar() {
     isActive ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" : "hover:bg-sidebar-accent/50";
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-64"}>
-      <SidebarHeader className="border-b border-sidebar-border">
+    <Sidebar className={`${collapsed ? "w-14" : "w-64"} glass-effect shadow-xl border-r border-primary/10`}>
+      <SidebarHeader className="border-b border-sidebar-border glass-effect">
         <div className="flex items-center gap-3 px-3 py-4">
-          <div className="h-8 w-8 rounded-lg bg-sidebar-primary flex items-center justify-center">
-            <Mountain className="h-5 w-5 text-sidebar-primary-foreground" />
+          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+            <Mountain className="h-5 w-5 text-primary-foreground" />
           </div>
           {!collapsed && (
             <div className="flex flex-col">
               <span className="font-semibold text-sidebar-foreground">Modo Caverna</span>
-              <span className="text-xs text-sidebar-foreground/60">Dashboard</span>
+              <span className="text-xs text-primary/60">Dashboard</span>
             </div>
           )}
         </div>

@@ -51,17 +51,19 @@ export function LoginForm({ onLogin }: LoginFormProps) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-background dashboard-background p-4">
+      <Card className="w-full max-w-md glass-effect shadow-2xl border-primary/20">
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center">
-            <div className="h-12 w-12 rounded-xl bg-primary flex items-center justify-center">
-              <Mountain className="h-6 w-6 text-primary-foreground" />
+            <div className="h-16 w-16 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg">
+              <Mountain className="h-8 w-8 text-primary-foreground" />
             </div>
           </div>
           <div className="space-y-2">
-            <CardTitle className="text-2xl font-bold">Modo Caverna</CardTitle>
-            <CardDescription>
+            <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+              Modo Caverna
+            </CardTitle>
+            <CardDescription className="text-muted-foreground">
               Faça login para acessar seu dashboard
             </CardDescription>
           </div>
