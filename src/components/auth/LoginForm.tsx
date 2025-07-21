@@ -62,7 +62,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
             Modo Caverna
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-3 px-4">
+        <CardContent className="pt-1 px-4">
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
