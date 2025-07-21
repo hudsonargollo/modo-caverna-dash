@@ -331,12 +331,12 @@ export default function Customers() {
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
             <span className="text-sm font-medium text-muted-foreground">Buscar</span>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-zinc-400" />
               <Input
-                placeholder="Nome ou email..."
+                placeholder="Digite o nome ou email do cliente..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 w-full sm:w-64 bg-background/60 backdrop-blur-sm border-primary/30 focus:border-primary/60"
+                className="pl-10 w-full sm:w-64 bg-white/90 backdrop-blur-sm border-primary/30 focus:border-primary/60 text-black placeholder:text-zinc-500"
               />
             </div>
           </div>
@@ -357,7 +357,26 @@ export default function Customers() {
                     <CardTitle className="text-sm font-semibold text-foreground line-clamp-2">
                       {customer.name}
                     </CardTitle>
-                    {getStatusBadge(customerStatus)}
+                    <div className="flex flex-col gap-1">
+                      {getStatusBadge(customerStatus)}
+                    </div>
+                  </div>
+                  
+                  {/* Plan Pills */}
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {activePurchases.slice(0, 2).map((purchase, index) => (
+                      <Badge 
+                        key={purchase.id} 
+                        className="text-xs px-2 py-1 bg-primary/20 text-primary border border-primary/30"
+                      >
+                        {purchase.plan.replace('Central Caverna', 'CC').replace('Modo Caverna', 'MC').replace('Desafio Caverna', 'DC')}
+                      </Badge>
+                    ))}
+                    {activePurchases.length > 2 && (
+                      <Badge className="text-xs px-2 py-1 bg-muted/20 text-muted-foreground">
+                        +{activePurchases.length - 2}
+                      </Badge>
+                    )}
                   </div>
                   
                   <div className="space-y-2">
