@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, TrendingUp, TrendingDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface MetricCardProps {
   title: string;
@@ -14,49 +14,39 @@ interface MetricCardProps {
   className?: string;
 }
 
-export function MetricCard({ 
-  title, 
-  value, 
-  subtitle, 
-  icon: Icon,
-  trend,
-  className = ""
-}: MetricCardProps) {
-  const getTrendColor = (direction: "up" | "down" | "neutral") => {
-    switch (direction) {
-      case "up":
-        return "bg-chart-2 text-chart-2-foreground";
-      case "down":
-        return "bg-chart-4 text-chart-4-foreground";
-      default:
-        return "bg-muted text-muted-foreground";
-    }
-  };
-
+export function MetricCard({ title, value, subtitle, icon: Icon, trend, className }: MetricCardProps) {
   return (
-    <Card className={`shadow-md hover:shadow-lg transition-shadow ${className}`}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-muted-foreground">
-          {title}
-        </CardTitle>
-        {Icon && (
-          <Icon className="h-4 w-4 text-muted-foreground" />
-        )}
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="text-2xl font-bold text-card-foreground">
-          {value}
+    <Card className={cn("glass-effect shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105", className)}>
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between space-y-0 pb-2">
+          <CardTitle className="text-sm font-medium text-muted-foreground">
+            {title}
+          </CardTitle>
+          {Icon && <Icon className="h-4 w-4 text-primary" />}
         </div>
-        {subtitle && (
-          <p className="text-xs text-muted-foreground">
-            {subtitle}
-          </p>
-        )}
-        {trend && (
-          <Badge variant="secondary" className={getTrendColor(trend.direction)}>
-            {trend.value}
-          </Badge>
-        )}
+        <div className="space-y-1">
+          <div className="text-2xl font-bold text-foreground bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+            {value}
+          </div>
+          {subtitle && (
+            <p className="text-xs text-muted-foreground">
+              {subtitle}
+            </p>
+          )}
+          {trend && (
+            <div className="flex items-center text-xs">
+              {trend.direction === "up" ? (
+                <TrendingUp className="mr-1 h-3 w-3 text-chart-2" />
+              ) : (
+                <TrendingDown className="mr-1 h-3 w-3 text-destructive" />
+              )}
+              <span className={trend.direction === "up" ? "text-chart-2" : "text-destructive"}>
+                {trend.value}
+              </span>
+              <span className="text-muted-foreground ml-1">vs último período</span>
+            </div>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

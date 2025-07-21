@@ -28,9 +28,9 @@ const financialData = [
 ];
 
 const statusData = [
-  { name: "Autorizadas", value: 85, color: "var(--color-chart-2)" },
-  { name: "Canceladas", value: 10, color: "var(--color-chart-4)" },
-  { name: "Pendentes", value: 5, color: "var(--color-chart-1)" },
+  { name: "Autorizadas", value: 85, color: "hsl(var(--chart-2))" },
+  { name: "Canceladas", value: 10, color: "hsl(var(--chart-4))" },
+  { name: "Pendentes", value: 5, color: "hsl(var(--chart-1))" },
 ];
 
 const paymentMethodData = [
@@ -108,30 +108,38 @@ export default function Dashboard() {
         {/* Charts Section */}
         <div className="grid gap-6 md:grid-cols-3">
           {/* Financial Performance */}
-          <Card className="shadow-lg">
+          <Card className="glass-effect shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-primary">
                 📈 Performance Financeira
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={financialData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <Tooltip formatter={(value) => [`R$ ${value.toLocaleString()}`, ""]} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    formatter={(value) => [`R$ ${value.toLocaleString()}`, ""]} 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
                   <Line 
                     type="monotone" 
                     dataKey="receita" 
-                    stroke="var(--color-chart-2)" 
+                    stroke="hsl(var(--chart-2))" 
                     strokeWidth={3}
                     name="Receita"
                   />
                   <Line 
                     type="monotone" 
                     dataKey="custos" 
-                    stroke="var(--color-chart-4)" 
+                    stroke="hsl(var(--chart-4))" 
                     strokeWidth={2}
                     name="Custos"
                   />
@@ -141,9 +149,9 @@ export default function Dashboard() {
           </Card>
 
           {/* Transaction Status */}
-          <Card className="shadow-lg">
+          <Card className="glass-effect shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-primary">
                 📊 Status das Transações
               </CardTitle>
             </CardHeader>
@@ -163,27 +171,41 @@ export default function Dashboard() {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
                 </PieChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
 
           {/* Payment Methods */}
-          <Card className="shadow-lg">
+          <Card className="glass-effect shadow-lg hover:shadow-xl transition-all duration-300">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-primary">
                 📊 Vendas e Métodos de Pagamento
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={paymentMethodData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="method" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="var(--color-chart-1)" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <XAxis dataKey="method" stroke="hsl(var(--muted-foreground))" />
+                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: 'hsl(var(--card))',
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px',
+                      color: 'hsl(var(--foreground))'
+                    }}
+                  />
+                  <Bar dataKey="value" fill="hsl(var(--chart-1))" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -191,9 +213,9 @@ export default function Dashboard() {
         </div>
 
         {/* Plano Caverna Section */}
-        <Card className="shadow-lg">
+        <Card className="glass-effect shadow-lg hover:shadow-xl transition-all duration-300">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 text-primary">
               🏔️ Plano Caverna
             </CardTitle>
           </CardHeader>
@@ -202,27 +224,27 @@ export default function Dashboard() {
               <MetricCard
                 title="Ativos"
                 value="3.856"
-                className="bg-chart-2/10"
+                className="bg-chart-2/10 border-chart-2/20"
               />
               <MetricCard
                 title="Expirando"
                 value="166"
-                className="bg-chart-1/10"
+                className="bg-chart-1/10 border-chart-1/20"
               />
               <MetricCard
                 title="Expirados"
                 value="1.073"
-                className="bg-chart-4/10"
+                className="bg-chart-4/10 border-chart-4/20"
               />
               <MetricCard
                 title="Total"
                 value="5.095"
-                className="bg-muted/20"
+                className="bg-muted/20 border-muted/30"
               />
               <MetricCard
                 title="Receita"
                 value="R$ 0,00"
-                className="bg-accent/10"
+                className="bg-accent/10 border-accent/20"
               />
             </div>
           </CardContent>
