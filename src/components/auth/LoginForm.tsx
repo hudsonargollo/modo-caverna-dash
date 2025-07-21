@@ -62,9 +62,6 @@ export function LoginForm({ onLogin }: LoginFormProps) {
             <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
               Modo Caverna
             </CardTitle>
-            <CardDescription className="text-muted-foreground">
-              Faça login para acessar seu dashboard
-            </CardDescription>
           </div>
         </CardHeader>
         <CardContent>
