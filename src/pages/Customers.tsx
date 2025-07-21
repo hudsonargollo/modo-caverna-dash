@@ -247,7 +247,7 @@ export default function Customers() {
 
   const getPurchaseStatusBadge = (purchase: Purchase) => {
     if (purchase.isRefunded) {
-      return <Badge className="bg-orange-500 text-white">REEMBOLSADO</Badge>;
+      return <Badge className="bg-orange-500 text-white font-medium" style={{color: '#ff3333'}}>REEMBOLSADO</Badge>;
     }
     return getStatusBadge(purchase.status);
   };
@@ -448,7 +448,6 @@ export default function Customers() {
                       {/* Active Purchases */}
                       {activePurchases.length > 0 && (
                         <div>
-                          <h4 className="text-xs font-medium text-muted-foreground mb-2">COMPRAS ATIVAS</h4>
                           {activePurchases.map((purchase) => (
                             <div key={purchase.id} className="border border-primary/20 rounded p-3 mb-2">
                               <div className="flex justify-between items-start mb-2">
@@ -486,7 +485,7 @@ export default function Customers() {
                                 <p className="text-sm font-medium text-foreground">{purchase.plan}</p>
                                 {getPurchaseStatusBadge(purchase)}
                               </div>
-                              <p className="text-lg font-bold text-orange-500 mb-2">{purchase.value}</p>
+                              <p className="text-lg font-bold mb-2 font-medium" style={{color: '#ff3333'}}>{purchase.value}</p>
                               <div className="grid grid-cols-2 gap-2 text-xs">
                                 <div>
                                   <p className="text-muted-foreground">COMPRA</p>
