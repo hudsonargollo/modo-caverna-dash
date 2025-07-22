@@ -58,7 +58,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
           <div className="flex justify-center mb-6">
             <img src={logoCompleto} alt="Modo Caverna" className="h-16 w-auto" />
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/40 bg-clip-text text-transparent">
             Modo Caverna
           </CardTitle>
           <CardDescription className="text-muted-foreground mt-2">
