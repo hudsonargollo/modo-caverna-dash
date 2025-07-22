@@ -2,6 +2,7 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { CaptainCaveReport } from "@/components/dashboard/CaptainCaveReport";
 import { UserActivityCard } from "@/components/dashboard/UserActivityCard";
+import { MetricData } from "@/components/dashboard/AIAnalysisService";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,13 +42,24 @@ const subscriptionTypes = [
 
 
 export default function Dashboard() {
+  // Prepare metrics data for AI analysis
+  const metricsData: MetricData = {
+    activeUsers: 2847,
+    newUsers: 456,
+    retentionRate: 84.2,
+    conversionRate: 12.8,
+    userGrowthData,
+    retentionData,
+    subscriptionTypes,
+  };
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
 
         {/* Captain Cave Report */}
         <div className="mb-8">
-          <CaptainCaveReport />
+          <CaptainCaveReport metricsData={metricsData} />
         </div>
 
         {/* Key User Metrics */}
