@@ -62,7 +62,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
             Modo Caverna
           </CardTitle>
           <CardDescription className="text-muted-foreground mt-2">
-            Faça login para acessar o dashboard
+            E aí, Cavernoso! Informe suas credenciais:
           </CardDescription>
         </CardHeader>
         <CardContent className="px-6 pb-6">
